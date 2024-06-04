@@ -1,0 +1,189 @@
+<% include ./includes/header.ejs %>
+<% include ./includes/flash.ejs %>
+
+<div class="container">
+  <div style="display: flex; justify-content: space-between;  align-items: center;">
+    <h1 style="margin-top: 2vw;">Your Performance:</h1>
+    <a style="background: #000; color: #ffff; border-radius: 8px; padding: 10px;  text-decoration: none; " href="/loadReport">View Report</a>
+
+  </div>
+
+<h3> Your Score :<%= totalScore%></h3>
+<h3>  Expected Score:<%=expected%></h3>
+
+</div>
+<!-- <a href="/loadReport">Report</a> -->
+
+<div class="chart-container" width:50% >
+    <h3 style="text-align: center; margin-top:1rem" >Total Score</h3>
+    <canvas id="chart1" style="margin-bottom: 4rem; margin-top: 4rem;"></canvas>
+    <hr>
+    <h3 style="text-align: center; margin-top:1rem" >Section wise Score</h3>
+    <canvas id="chart2" style="margin-bottom: 4rem; margin-top: 4rem;" ></canvas>
+    <hr>
+    <h3 style="text-align: center; margin-top:1rem" >Answered and un-Answered Question's Count</h3>
+    <canvas id="chart3" style="margin-bottom: 4rem; margin-top: 4rem;" ></canvas>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+  <script>
+
+const ctx1 = document.getElementById('chart1').getContext('2d');
+const ctx2 = document.getElementById('chart2').getContext('2d');
+const ctx3 = document.getElementById('chart3').getContext('2d');
+
+new Chart(ctx1, {
+  type: 'pie',
+  data: {
+    labels: ['Your Score', 'where you lag'],
+    datasets: [{
+      label: 'Scores',
+      data: [<%= totalScore %>, <%= actual %>],
+      backgroundColor: [
+        'rgba(75, 192, 192, 0.8)', // Color for correct answers
+        'rgba(255, 99, 132, 0.8)'   // Color for incorrect answers
+      ],
+      borderColor: [
+        'rgba(75, 192, 192, 1)',   // Border color for correct answers
+        'rgba(255, 99, 132, 1)'    // Border color for incorrect answers
+      ],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    aspectRatio: 3,
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            weight: 'bold', // Make labels bold
+            size: 20 // Increase label size
+          }
+        }
+      }
+      
+    }
+  }
+});
+
+new Chart(ctx2, {
+  type: 'radar',
+  data: {
+    labels:[
+      'data backup',
+      'inventory measures',
+      'cyber security',
+      'data protection',
+      'salary pay',
+    ],
+    datasets: [{
+      label: 'Scores',
+      data: [
+        <%=sectionScores["Data Backup"]%>,
+        <%=sectionScores["Inventory Measures"]%>,
+        <%=sectionScores["Cyber Security"]%>,
+        <%=sectionScores["Data Protection"]%>,
+        <%=sectionScores["Salary Pay"]%>,
+      ],
+      backgroundColor: [
+        'rgba(75, 192, 192, 0.8)', // Color for correct answers
+        'rgba(255, 99, 132, 0.8)'   // Color for incorrect answers
+      ],
+      borderColor: [
+        'rgba(75, 192, 192, 1)',   // Border color for correct answers
+        'rgba(255, 99, 132, 1)'    // Border color for incorrect answers
+      ],
+      borderWidth: 1,
+      barThickness: 60
+    }]
+  },
+  options: {
+    aspectRatio: 3,
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            weight: 'bold', // Make labels bold
+            size: 20 // Increase label size
+          }
+        }
+      },
+      scale: {
+        pointLabels: {
+          font: {
+            size: 20 // Increase label size
+          }
+        }
+      }
+    }
+  }
+});
+
+new Chart(ctx3, {
+  type: 'polarArea',
+  data: {
+    labels: [
+      "Non-Attempted",
+      "Attempted",
+      "Total"
+    ],
+    datasets: [{
+      label: 'Scores',
+      data: [
+        <%= unselected %>,
+        <%= selected %>,
+        <%= total_que %>
+      ],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.8)', // Red for non-attempted questions
+        'rgba(255, 205, 86, 0.8)',
+        'rgb(75, 192, 192,0.8)',  // Yellow for attempted questions
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',   // Border color for non-attempted questions
+        'rgba(255, 205, 86, 1)',
+        'rgb(75, 192, 192,1)',   // Border color for attempted questions
+      ],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    aspectRatio: 3,
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            weight: 'bold', // Make labels bold
+            size: 20 // Increase label size
+          }
+        }
+      }
+    }
+  }
+});
+
+
+  </script>
+
+
+
+
+<% include ./includes/footer.ejs %>
+
+

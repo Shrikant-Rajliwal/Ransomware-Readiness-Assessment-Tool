@@ -1,0 +1,33 @@
+<% include ./includes/header.ejs %>
+<% include ./includes/flash.ejs %>
+<body>  
+<div  style="display: flex; justify-content: center; align-items: center; margin-top: 2rem; ">
+  <form action="/result" class="container-1" method="post" style="width: 80%; max-width: 1200px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    
+    <% for(list of lists){ %>
+      <h5 style="margin-top: 1rem; margin-bottom: 1rem;"><%= list.section %></h5>
+      <h5 style="margin-top: 1rem; margin-bottom: 1rem;"><%= list.question %></h5>
+      <div style="margin-bottom: 1rem;">
+        <input name="<%= list.id %>" type="radio" id="option1_<%= list.id %>" value="option1">
+        <label for="option1_<%= list.id %>"><%= list.options[0].text %></label>
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <input name="<%= list.id %>" type="radio" id="option2_<%= list.id %>" value="option2">
+        <label for="option2_<%= list.id %>"><%= list.options[1].text %></label>
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <input name="<%= list.id %>" type="radio" id="option3_<%= list.id %>" value="option3">
+        <label for="option3_<%= list.id %>"><%= list.options[2].text %></label>
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <input name="<%= list.id %>" type="radio" id="option4_<%= list.id %>" value="option4">
+        <label for="option4_<%= list.id %>"><%= list.options[3].text %></label>
+      </div>
+      <hr>
+    <% }%>
+    
+<button type="submit" class="btn btn-primary" style="margin-top: 2rem; padding: 5px 10px; border-radius: 10px; background-color: #007bff; color: #fff; border: none;">Submit</button>
+  </form>
+</div>
+
+<% include ./includes/footer.ejs %>

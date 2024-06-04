@@ -1,0 +1,28 @@
+{
+  "name": "rra",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.0",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^11.2.0",
+    "http-errors": "~1.6.3",
+    "mongoose": "^8.1.3",
+    "morgan": "~1.9.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^8.0.0",
+    "path": "^0.12.7",
+    "pdf-creator-node": "^2.3.5",
+    "pdfkit": "^0.15.0"
+  }
+}

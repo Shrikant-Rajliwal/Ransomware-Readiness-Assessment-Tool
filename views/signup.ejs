@@ -1,0 +1,29 @@
+<% include ./includes/header.ejs %>
+
+<h3 class="col-6 offset-3" style="margin-top: 3rem; text-align: center;">Signup on RRA</h3>
+
+<div class="row" style="margin-bottom: 11rem;">
+    <div class="col-6 offset-3" style="display: flex; justify-content: center; align-items: center;">
+        <form action="/signup" method="post" class="needs-validation">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input required class="form-control" style="margin-bottom: 1rem; width: 20rem;" type="text" id="username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input required class="form-control" style="margin-bottom: 1rem;" type="email" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input required class="form-control" style="margin-bottom: 1rem;" type="password" id="password" name="password">
+            </div>
+            <div class="form-group">
+                <label for="organization_name">organization_name</label>
+                <input required class="form-control" style="margin-bottom: 1rem;"  id="organization_name" name="organization_name">
+            </div>
+            <button type="submit" class="btn btn-success mt-3">Signup</button>
+        </form>
+    </div>
+</div>
+
+<% include ./includes/footer.ejs %>

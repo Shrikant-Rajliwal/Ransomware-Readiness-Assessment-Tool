@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Report</title>
+
+    <style>
+        body{
+            background: #bdd9f8;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #0f0a0a;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="conatiner" style=" height: 100%; padding: 2vw 2vw;">
+        <div style="display: flex; align-items: center; justify-content: space-evenly; ">
+            <h1>Organizations Name: <%= unserInfo.organization_name %></h1>
+            <button style="background-color: black; padding: 0.7vw; color: white; border-radius: 7px; cursor: pointer; " id="downloadButton">Download Report</button>
+        </div>
+        
+        <h3>Representatives Name: <%= unserInfo.username %></h3>
+        <h3 id="date"></h3>
+        <h2>Assessment Details</h2>
+        <table style="border-collapse: collapse; border: 2px solid black;">
+            <tr>
+                <th style="text-align: center;">Question</th>
+                <th style="text-align: center;">Answer Selected</th>
+            </tr>
+             
+            <% for (let list of lists) { %>
+                <tr>
+                    <td><%= list.question %></td>
+                    <td><%= list.options[0].text %></td>
+                </tr>
+            <% } %>
+              
+             <!-- Add more rows for additional questions and answers -->
+        </table>
+
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+        <h1>Section wise possible Improvement</h1>
+        
+
+        <table style="width: 90vw; height: 17vw;border-collapse: collapse; border: 2px solid black;">
+        <% 
+        // Initialize a set to store unique section names
+        const uniqueSections = new Set();
+         
+        // Iterate through the lists
+        for (let list of lists) {
+            // Add the section name to the set
+            uniqueSections.add(list.section);
+        }
+        %>
+        <tr>
+            <% 
+            // Iterate through the unique section names
+            uniqueSections.forEach(section => {
+            %>
+                <th style="text-align: center;"><%= section %></th>
+            <% 
+            });
+            %>
+        </tr>
+        <tr>
+          <% for (let section in sectionScores) { %>
+              <td><%=  "Total Score: " + sectionScores[section] %></td>
+          <% } %>
+      </tr>
+
+      <tr>
+        <% for (let section in sectionScores) { %>
+            <td>
+                <% 
+                // Add logic to suggest improvements based on scores
+                const score = sectionScores[section];
+                let suggestion = "";
+
+                // Example suggestion logic (you can customize this)
+                if (score >= 50) {
+                    suggestion = "Your organization is performing exceptionally well in this  "+section+" !";
+                } else if (score >= 20) {
+                    suggestion = "Your organization is doing well in this  "+section+" , but there's still room for improvement.";
+                } else {
+                    suggestion = "Your organization strongly needs to focus more on this "+section+" section to improve performance.";
+                }
+
+                // Render the suggestion
+                %>
+                <%= suggestion %>
+            </td>
+        <% } %>
+    </tr>
+
+      
+        </table>
+        
+        <div class="graphs">
+            <!-- Your chart code here -->
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("date").innerHTML = "Date: " + Date();
+        document.getElementById("downloadButton").addEventListener("click", function() {
+            window.print(); // Trigger the print dialog
+        });
+    </script>
+</body>
+</html>
